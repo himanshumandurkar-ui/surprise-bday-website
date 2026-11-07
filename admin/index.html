@@ -419,34 +419,39 @@ function collectData(){
  return data;
 }
 
-$("saveBtn").addEventListener("click",async()=>{
- if(!currentSlug)return;
 
- $("saveStatus").textContent="Saving...";
+$("saveBtn").addEventListener("click", async () => {
+  if (!currentSlug) {
+    $("saveStatus").textContent = "Please select a profile first.";
+    return;
+  }
 
- try{
-  const data=collectData();
+  $("saveStatus").textContent = "Saving...";
 
-  await api("/api/admin/data",{
-   method:"POST",
-   body:JSON.stringify({
-    action:"save",
-    slug:currentSlug,
-    data
-   })
-  });
+  try {
+    const data = collectData();
 
-  currentData=data;
-  const profile=profiles.find(p=>p.slug===currentSlug);
-  if(profile)profile.data=data;
+    const result = await api("/api/admin/data", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "save",
+        slug: currentSlug,
+        data
+      })
+    });
 
-  const option=$("profileSelect").selectedOptions[0];
-  if(option)option.textContent=data.name || currentSlug;
+    currentData = data;
 
-  $("saveStatus").textContent="✓ Profile saved successfully.";
- }catch(err){
-  $("saveStatus").textContent="Error: "+err.message;
- }
+    const profile = profiles.find(p => p.slug === currentSlug);
+    if (profile) profile.data = data;
+
+    const option = $("profileSelect").selectedOptions[0];
+    if (option) option.textContent = data.name || currentSlug;
+
+    $("saveStatus").textContent = "✓ Profile saved successfully.";
+  } catch (err) {
+    $("saveStatus").textContent = "Error: " + err.message;
+  }
 });
 
 $("createBtn").addEventListener("click",async()=>{
