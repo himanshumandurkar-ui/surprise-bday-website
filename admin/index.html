@@ -1,87 +1,544 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffe7ef">
-  <title>A Little Surprise for Vedika 💗</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=6">
-  <style>.site .page{display:none}.site .page.active{display:flex}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birthday Website Admin</title>
+<style>
+:root{--pink:#bd6687;--bg:#fff5f8;--dark:#382633;--muted:#887681}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--dark);font-family:Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:11px 17px;font-weight:600}
+.primary{background:var(--pink);color:white}
+.secondary{background:#f5e5ec;color:#6d4055}
+.danger{background:#ffe5e5;color:#b32626}
+.hidden{display:none!important}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login-card{background:white;padding:35px;border-radius:18px;width:100%;max-width:400px;box-shadow:0 10px 40px #bd668722}
+.login-card h1{text-align:center}
+.login-card p{text-align:center;color:var(--muted)}
+.login-card input{width:100%;margin:15px 0}
+input,textarea,select{width:100%;padding:11px;border:1px solid #e8d5de;border-radius:8px;background:white;color:var(--dark)}
+textarea{min-height:90px;resize:vertical}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+.field{margin-bottom:17px}
+.error{color:#bd3030;font-size:13px;min-height:18px}
+header{background:white;padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px;box-shadow:0 2px 12px #00000008}
+header h2{margin:0;font-size:19px}
+header small{color:var(--muted)}
+.container{max-width:1100px;margin:28px auto;padding:0 18px}
+.panel{background:white;border-radius:14px;padding:22px;margin-bottom:20px;box-shadow:0 4px 20px #bd668710}
+.panel h3{margin-top:0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1}
+.profile-select{min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px}
+.photo-card{border:1px solid #f0dce5;padding:10px;border-radius:10px}
+.photo-card img{width:100%;height:130px;object-fit:cover;border-radius:7px;background:#f7edf1}
+.photo-card input{margin:9px 0}
+.photo-card button{width:100%}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted);margin-top:10px}
+.section-title{border-bottom:1px solid #f1e2e9;padding-bottom:10px;margin-bottom:18px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}header{padding:15px}.container{margin:16px auto}.panel{padding:16px}}
+</style>
 </head>
 <body>
-  <div class="sparkle-bg" aria-hidden="true"></div>
 
-  <main>
-    <section class="gate screen" id="gate">
-      <div class="gate-card">
-        <div class="tiny-hearts">♡　✦　♡</div>
-        <div class="gift" aria-hidden="true">🎁</div>
-        <p class="eyebrow">A LITTLE SURPRISE IS WAITING</p>
-        <h1 id="gate-title">Hey!</h1>
-        <p class="gate-copy">Someone has made a little something just for you.<br>Enter your birthday to open it. 💗</p>
-        <form id="unlock-form">
-          <label for="birthday">Your date of birth</label>
-          <input id="birthday" type="date" required>
-          <button class="primary-btn" type="submit">Unlock my surprise <span>♡</span></button>
-          <p class="error" id="error" role="alert" aria-live="polite"></p>
-        </form>
-        <p class="gate-foot">Made with friendship &amp; lots of memories ✨</p>
-      </div>
-    </section>
+<!-- LOGIN -->
+<section id="loginScreen" class="login-wrap">
+ <div class="login-card">
+  <h1>💗 Admin Login</h1>
+  <p>Birthday Website Management</p>
+  <form id="loginForm">
+   <div class="field">
+    <label>Admin Password</label>
+    <input id="password" type="password" placeholder="Enter admin password" required>
+   </div>
+   <button class="primary" style="width:100%">Login</button>
+   <p id="loginError" class="error"></p>
+  </form>
+ </div>
+</section>
 
-    <section class="site hidden" id="site">
-      <div class="page p-hero active">
-        <p class="brand-line">for <b id="brand-name"></b> <span>♡</span></p>
-        <div class="page-body hero-body">
-          <p class="eyebrow" id="hero-eyebrow"></p>
-          <h1><span id="hero-title"></span><br><em id="hero-name"></em></h1>
-          <p class="hero-line" id="hero-line"></p>
-          <div class="cake" aria-hidden="true">🎂</div>
-        </div>
-        <div class="floating-heart h1" aria-hidden="true">♡</div><div class="floating-heart h2" aria-hidden="true">✦</div><div class="floating-heart h3" aria-hidden="true">♡</div>
-        <div class="page-nav"><button class="primary-btn" type="button" data-next>Next →</button></div>
-      </div>
-
-      <div class="page p-intro">
-        <div class="page-body">
-          <p class="eyebrow">A NOTE BEFORE WE BEGIN</p>
-          <h2><span id="intro-a"></span><br><em id="intro-b"></em></h2>
-          <p class="intro-text" id="intro-text"></p>
-        </div>
-        <div class="page-nav"><button class="ghost-btn" type="button" data-prev>← Back</button><button class="primary-btn" type="button" data-next>Next →</button></div>
-      </div>
-
-      <div class="page p-bubbles" id="memories">
-        <div class="bubble-head">
-          <p class="eyebrow">LITTLE MOMENTS, BIG MEMORIES</p>
-          <h2><b id="mem-title"></b> <span>♡</span></h2>
-          <p id="mem-sub"></p>
-        </div>
-        <div class="bubble-field" id="bubble-field" aria-label="Memory bubbles"></div>
-        <div class="page-nav"><button class="ghost-btn" type="button" data-prev>← Back</button><button class="ghost-btn" id="reset-bubbles" type="button">Bring bubbles back</button><button class="primary-btn" type="button" data-next>Next →</button></div>
-      </div>
-
-      <div class="page p-end">
-        <div class="page-body">
-          <div class="footer-heart" aria-hidden="true">♡</div>
-          <h2 id="footer-title"></h2>
-          <p id="footer-text"></p>
-          <strong id="footer-strong"></strong>
-          <small id="footer-small"></small>
-        </div>
-        <div class="page-nav"><button class="ghost-btn" type="button" data-prev>← Back</button><button class="primary-btn" type="button" data-first>Start again ↺</button></div>
-      </div>
-    </section>
-  </main>
-  <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-card" id="modal-card">
-      <button class="modal-close" id="modal-close" type="button" aria-label="Close">×</button>
-      <div id="modal-body"></div>
-    </div>
+<!-- DASHBOARD -->
+<section id="dashboard" class="hidden">
+ <header>
+  <div>
+   <h2>🎂 Birthday Admin</h2>
+   <small>Manage birthday profiles and memories</small>
   </div>
-  <script src="script.js?v=6"></script>
+  <button class="danger" id="logoutBtn">Logout</button>
+ </header>
+
+ <main class="container">
+
+  <!-- PROFILE MANAGEMENT -->
+  <section class="panel">
+   <h3>Profile Management</h3>
+   <div class="row">
+    <div>
+     <label>Select Profile</label>
+     <select id="profileSelect" class="profile-select"></select>
+    </div>
+    <button class="secondary" id="defaultBtn">Set as Default</button>
+    <button class="danger" id="deleteBtn">Delete Profile</button>
+   </div>
+   <div class="row" style="margin-top:18px">
+    <input id="newProfileName" placeholder="New person's name">
+    <button class="primary" id="createBtn">+ Create Profile</button>
+   </div>
+   <p id="profileStatus" class="status"></p>
+  </section>
+
+  <!-- BASIC DETAILS -->
+  <section class="panel">
+   <h3 class="section-title">Basic Details</h3>
+   <div class="grid">
+    <div class="field">
+     <label>Name</label>
+     <input id="name">
+    </div>
+    <div class="field">
+     <label>Birthday Date</label>
+     <input id="birthday" type="date">
+    </div>
+    <div class="field">
+     <label>Theme Accent Color</label>
+     <input id="accent" type="color">
+    </div>
+    <div class="field">
+     <label>Show Letter Bubble?</label>
+     <select id="showLetterBubble">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+     </select>
+    </div>
+   </div>
+  </section>
+
+  <!-- HERO -->
+  <section class="panel">
+   <h3 class="section-title">Birthday Welcome Page</h3>
+   <div class="field"><label>Small Heading</label><input id="heroEyebrow"></div>
+   <div class="field"><label>Main Heading</label><input id="heroTitle"></div>
+   <div class="field"><label>Welcome Message</label><textarea id="heroLine"></textarea></div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="panel">
+   <h3 class="section-title">Introduction Page</h3>
+   <div class="field"><label>Heading Line 1</label><input id="introA"></div>
+   <div class="field"><label>Heading Line 2</label><input id="introB"></div>
+   <div class="field"><label>Introduction Message</label><textarea id="introText"></textarea></div>
+  </section>
+
+  <!-- MEMORIES -->
+  <section class="panel">
+   <h3 class="section-title">Memory Bubbles</h3>
+   <div class="field"><label>Memory Section Title</label><input id="bubbleTitle"></div>
+   <div class="field"><label>Memory Section Description</label><textarea id="bubbleSub"></textarea></div>
+  </section>
+
+  <!-- LETTER -->
+  <section class="panel">
+   <h3 class="section-title">Friendship Letter</h3>
+   <div class="field">
+    <label>Letter Content</label>
+    <textarea id="letter" style="min-height:300px" placeholder="Write your birthday letter here..."></textarea>
+   </div>
+  </section>
+
+  <!-- PHOTOS -->
+  <section class="panel">
+   <h3 class="section-title">Photo Memories</h3>
+   <p class="status">JPG, PNG, WEBP and GIF supported. Maximum 10 MB per image.</p>
+   <div class="field">
+    <label>Upload Multiple Photos</label>
+    <input id="photoUpload" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+   </div>
+   <p id="uploadStatus" class="status"></p>
+   <div id="photos" class="photos"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <section class="panel">
+   <h3 class="section-title">Final Birthday Page</h3>
+   <div class="field"><label>Heading</label><input id="footerTitle"></div>
+   <div class="field"><label>Message</label><textarea id="footerText"></textarea></div>
+   <div class="field"><label>Highlighted Message</label><input id="footerStrong"></div>
+   <div class="field"><label>Small Footer Text</label><input id="footerSmall"></div>
+  </section>
+
+  <!-- SAVE -->
+  <section class="panel">
+   <div class="actions">
+    <button class="primary" id="saveBtn">💾 Save Changes</button>
+    <button class="secondary" id="reloadBtn">Reload Profile</button>
+   </div>
+   <p id="saveStatus" class="status"></p>
+  </section>
+
+ </main>
+</section>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let profiles = [];
+let currentSlug = "";
+let defaultSlug = "";
+let currentData = {};
+
+const fields = [
+ "name","birthday","accent",
+ "heroEyebrow","heroTitle","heroLine",
+ "introA","introB","introText",
+ "bubbleTitle","bubbleSub",
+ "letter",
+ "footerTitle","footerText","footerStrong","footerSmall"
+];
+
+async function api(url, options = {}) {
+ const response = await fetch(url,{
+  credentials:"same-origin",
+  ...options,
+  headers:{
+   "Content-Type":"application/json",
+   ...(options.headers || {})
+  }
+ });
+
+ let result;
+ try { result = await response.json(); }
+ catch { result = {}; }
+
+ if(!response.ok) {
+  throw new Error(result.error || "Request failed ("+response.status+")");
+ }
+ return result;
+}
+
+function showDashboard(){
+ $("loginScreen").classList.add("hidden");
+ $("dashboard").classList.remove("hidden");
+}
+
+function showLogin(){
+ $("dashboard").classList.add("hidden");
+ $("loginScreen").classList.remove("hidden");
+}
+
+async function checkLogin(){
+ try{
+  const result = await api("/api/admin/login");
+  if(result.authenticated){
+   showDashboard();
+   await loadProfiles();
+  }else{
+   showLogin();
+  }
+ }catch(e){
+  showLogin();
+  $("loginError").textContent=e.message;
+ }
+}
+
+$("loginForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ $("loginError").textContent="";
+ try{
+  await api("/api/admin/login",{
+   method:"POST",
+   body:JSON.stringify({password:$("password").value})
+  });
+  $("password").value="";
+  showDashboard();
+  await loadProfiles();
+ }catch(err){
+  $("loginError").textContent=err.message;
+ }
+});
+
+async function loadProfiles(){
+ $("profileStatus").textContent="Loading profiles...";
+ const result=await api("/api/admin/data");
+ profiles=result.profiles || [];
+ defaultSlug=result.defaultSlug || "vedika";
+
+ const select=$("profileSelect");
+ select.innerHTML="";
+
+ profiles.forEach(p=>{
+  const option=document.createElement("option");
+  option.value=p.slug;
+  option.textContent=p.data?.name || p.slug;
+  select.appendChild(option);
+ });
+
+ if(!profiles.length){
+  $("profileStatus").textContent="No profiles found.";
+  return;
+ }
+
+ currentSlug=profiles.some(p=>p.slug===currentSlug)
+  ? currentSlug
+  : defaultSlug;
+
+ if(!profiles.some(p=>p.slug===currentSlug)){
+  currentSlug=profiles[0].slug;
+ }
+
+ select.value=currentSlug;
+ loadSelectedProfile();
+ $("profileStatus").textContent=
+  "Default profile: "+defaultSlug;
+}
+
+function loadSelectedProfile(){
+ currentSlug=$("profileSelect").value;
+ const profile=profiles.find(p=>p.slug===currentSlug);
+ if(!profile)return;
+
+ currentData=JSON.parse(JSON.stringify(profile.data || {}));
+
+ fields.forEach(key=>{
+  $(key).value=currentData[key] ?? "";
+ });
+
+ $("accent").value=currentData.accent || "#bd6687";
+ $("showLetterBubble").value=
+  currentData.showLetterBubble===false ? "false":"true";
+
+ renderPhotos();
+ $("saveStatus").textContent="";
+}
+
+$("profileSelect").addEventListener("change",loadSelectedProfile);
+
+function renderPhotos(){
+ const container=$("photos");
+ container.innerHTML="";
+
+ const photos=currentData.photos || [];
+
+ if(!photos.length){
+  container.textContent="No photos added yet.";
+  return;
+ }
+
+ photos.forEach((photo,index)=>{
+  const card=document.createElement("div");
+  card.className="photo-card";
+
+  const img=document.createElement("img");
+  img.src=photo.src;
+  img.alt=photo.caption || "Memory photo";
+
+  const caption=document.createElement("input");
+  caption.value=photo.caption || "";
+  caption.placeholder="Photo caption";
+  caption.addEventListener("input",()=>{
+   currentData.photos[index].caption=caption.value;
+  });
+
+  const remove=document.createElement("button");
+  remove.className="danger";
+  remove.textContent="Remove Photo";
+  remove.addEventListener("click",()=>{
+   currentData.photos.splice(index,1);
+   renderPhotos();
+  });
+
+  card.append(img,caption,remove);
+  container.appendChild(card);
+ });
+}
+
+$("photoUpload").addEventListener("change",async e=>{
+ const files=Array.from(e.target.files || []);
+ if(!files.length)return;
+
+ $("uploadStatus").textContent="Uploading photos...";
+
+ try{
+  if(!currentData.photos)currentData.photos=[];
+
+  for(const file of files){
+   if(!["image/jpeg","image/png","image/webp","image/gif"].includes(file.type)){
+    throw new Error("Unsupported image: "+file.name);
+   }
+
+   if(file.size>10*1024*1024){
+    throw new Error(file.name+" exceeds 10 MB.");
+   }
+
+   const base64=await new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result.split(",")[1]);
+    reader.onerror=()=>reject(new Error("Could not read "+file.name));
+    reader.readAsDataURL(file);
+   });
+
+   const result=await api("/api/admin/upload",{
+    method:"POST",
+    body:JSON.stringify({
+     fileBase64:base64,
+     contentType:file.type
+    })
+   });
+
+   currentData.photos.push({
+    src:result.src,
+    caption:file.name.replace(/\.[^.]+$/,"")
+   });
+  }
+
+  renderPhotos();
+  $("uploadStatus").textContent="Photos uploaded. Click Save Changes to save them to this profile.";
+ }catch(err){
+  $("uploadStatus").textContent=err.message;
+ }
+
+ e.target.value="";
+});
+
+function collectData(){
+ const data={};
+
+ fields.forEach(key=>{
+  data[key]=$(key).value;
+ });
+
+ data.showLetterBubble=$("showLetterBubble").value==="true";
+ data.photos=currentData.photos || [];
+
+ return data;
+}
+
+$("saveBtn").addEventListener("click",async()=>{
+ if(!currentSlug)return;
+
+ $("saveStatus").textContent="Saving...";
+
+ try{
+  const data=collectData();
+
+  await api("/api/admin/data",{
+   method:"POST",
+   body:JSON.stringify({
+    action:"save",
+    slug:currentSlug,
+    data
+   })
+  });
+
+  currentData=data;
+  const profile=profiles.find(p=>p.slug===currentSlug);
+  if(profile)profile.data=data;
+
+  const option=$("profileSelect").selectedOptions[0];
+  if(option)option.textContent=data.name || currentSlug;
+
+  $("saveStatus").textContent="✓ Profile saved successfully.";
+ }catch(err){
+  $("saveStatus").textContent="Error: "+err.message;
+ }
+});
+
+$("createBtn").addEventListener("click",async()=>{
+ const name=$("newProfileName").value.trim();
+ if(!name){
+  alert("Enter a person's name first.");
+  return;
+ }
+
+ try{
+  const result=await api("/api/admin/data",{
+   method:"POST",
+   body:JSON.stringify({
+    action:"create",
+    name,
+    copyFrom:currentSlug || "vedika"
+   })
+  });
+
+  $("newProfileName").value="";
+  await loadProfiles();
+  currentSlug=result.slug;
+  $("profileSelect").value=currentSlug;
+  loadSelectedProfile();
+
+  $("profileStatus").textContent="New profile created: "+result.slug;
+ }catch(err){
+  alert(err.message);
+ }
+});
+
+$("defaultBtn").addEventListener("click",async()=>{
+ if(!currentSlug)return;
+
+ try{
+  await api("/api/admin/data",{
+   method:"POST",
+   body:JSON.stringify({
+    action:"default",
+    slug:currentSlug
+   })
+  });
+
+  defaultSlug=currentSlug;
+  $("profileStatus").textContent=
+   "✓ "+currentSlug+" is now the default profile.";
+ }catch(err){
+  alert(err.message);
+ }
+});
+
+$("deleteBtn").addEventListener("click",async()=>{
+ if(!currentSlug)return;
+
+ if(!confirm("Delete this birthday profile permanently?"))return;
+
+ try{
+  await api("/api/admin/data",{
+   method:"POST",
+   body:JSON.stringify({
+    action:"delete",
+    slug:currentSlug
+   })
+  });
+
+  currentSlug="";
+  await loadProfiles();
+  $("profileStatus").textContent="Profile deleted.";
+ }catch(err){
+  alert(err.message);
+ }
+});
+
+$("reloadBtn").addEventListener("click",async()=>{
+ try{
+  await loadProfiles();
+  $("saveStatus").textContent="Profile reloaded.";
+ }catch(err){
+  $("saveStatus").textContent=err.message;
+ }
+});
+
+$("logoutBtn").addEventListener("click",async()=>{
+ try{
+  await api("/api/admin/logout",{method:"POST",body:"{}"});
+ }catch(err){
+  console.error(err);
+ }
+ showLogin();
+});
+
+checkLogin();
+</script>
 </body>
 </html>
